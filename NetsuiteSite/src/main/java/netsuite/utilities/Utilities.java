@@ -6,11 +6,14 @@ import netsuite.pages.Home;
 import netsuite.pages.Login;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.firefox.internal.ProfilesIni;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -46,7 +49,7 @@ public class Utilities {
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(locator)));
 	}
 	
-	public void waitForElementVisibleX(String locator){
+	public static void waitForElementVisibleX(String locator){
 		WebDriverWait wait = new WebDriverWait(driver, 60);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator)));
 	}
@@ -87,5 +90,16 @@ public class Utilities {
 		}
 	}
 	
+	
+	public static void waitForPageLoad(WebDriver driver) {
+	    ExpectedCondition <Boolean> pageLoadCondition = new
+	        ExpectedCondition<Boolean>() {
+	            public Boolean apply(WebDriver driver) {
+	                return ((JavascriptExecutor)driver).executeScript("return document.readyState").equals("complete");
+	            }
+	        };
+		WebDriverWait wait = new WebDriverWait(driver, 30);
+		wait.until(pageLoadCondition);
+	}
 	
 }

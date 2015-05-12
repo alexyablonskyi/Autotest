@@ -7,13 +7,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-	public class ShoppingCart extends WorkClass{
-
-	    public ShoppingCart(WebDriver driver){
-	        super(driver);
-	        PageFactory.initElements(driver, this);
-	    }
-	
+	public class ShoppingCart{
+		
+	WebDriver driver;
+	    
+	public ShoppingCart(WebDriver driver){
+		this.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
 	    
 	/* 
 	 * Search field
@@ -29,7 +30,7 @@ import org.openqa.selenium.support.PageFactory;
 	
 	public void searchingItem(){
 		search.clear();
-		search.sendKeys("notebook");
+		search.sendKeys("ruler");
 		goSearching.click();
 	}
 	

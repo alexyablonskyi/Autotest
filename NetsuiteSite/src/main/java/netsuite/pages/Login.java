@@ -33,11 +33,11 @@ public class Login {
 	}
 	
 	
-	@FindBy(xpath = ".//*[@class='logout']/a")
+	@FindBy(xpath = ".//*[@id='signOut']")
     WebElement logOutLink;
 	
 	public String getLogOutXpath(){
-		return ".//*[@class='logout']/a";
+		return ".//*[@id='signOut']";
 	}
 	
 	public void clickLogOutLink(){
