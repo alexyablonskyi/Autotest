@@ -65,5 +65,10 @@ import org.openqa.selenium.support.PageFactory;
 		checkoutButton.click();
 	}
 	
-	
+	public void addItemViaSearch() {
+		clickOnMiniCart();
+		searchingItem();
+		clickAddToCartButton();
+		clickOnMiniCart();
+	}
 }

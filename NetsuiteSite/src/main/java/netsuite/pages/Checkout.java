@@ -20,22 +20,23 @@ public class Checkout {
 
 	
 	/*
-	 *  Continue button
+	 *  Continue button on Billing step
 	 */
 	@FindBy (xpath = "(//*[contains(text(), 'Continue')])[3]")
-	WebElement continueButton;
+	WebElement continueButtonOnBillingStep;
 	
-	public void clickContinueButton(){
-		continueButton.click();
+	public void clickContinueButtonOnBillingStep(){
+		continueButtonOnBillingStep.click();
 	}
 	
 	/*
 	 *  Continue button on  Shipping step
 	 */
-	@FindBy (xpath = "(//*[contains(text(), 'Continue')])[2]")
+	@FindBy (xpath = "(.//*[@id='wizard-content']//*[contains(text(), 'Continue')])[2]")
 	WebElement continueButtonOnShippingStep;
 	
-	public void clickContinueButtonOnShippingStep(){
+	public void clickContinueButtonOnShippingStep() throws InterruptedException{
+		Thread.sleep(3000);
 		continueButtonOnShippingStep.click();
 	}
 	
@@ -126,7 +127,7 @@ public class Checkout {
 		phone.sendKeys(Global.PHONE_NUM);
 	}
 	
-	public void enterShippingAddress(){
+	public void enterShippingAddress() throws InterruptedException{
 		enterAddress1ShippingAdreess();
 		enterCityShippingAdreess();
 		selectState();
@@ -158,6 +159,10 @@ public class Checkout {
 	
 	public void selectNextBusinessDays(){
 		nextBusinessDays.click();
+	}
+	
+	public String getDeleiveryOptionId(){
+		return "delivery-options-3680";
 	}
 	
 	
@@ -207,6 +212,213 @@ public class Checkout {
 		creditCardName.sendKeys(Global.CREDIT_CARD_NAME);
 	}	
 	
+	public void enterNewCreditCard(){
+		enterCreditCardNumber();
+		selectExpMonth();
+		selectExpYear();
+		enterCVVcode();
+		enterCreditCardName();
+	}
+	
+	
+	
+	/* 
+	 * Address layover
+	 */
+	@FindBy (id = "in-modal-fullname")
+	WebElement fullNameLayover;
+	
+	public void enterFullNameAdreessLayover(){
+		fullNameLayover.clear();
+		fullNameLayover.sendKeys(Global.NAME);
+	}
+	
+	@FindBy (id = "in-modal-company")
+	WebElement companyLayover;
+	
+	public void enterCompanyAdreessLayover(){
+		companyLayover.clear();
+		companyLayover.sendKeys(Global.COMPANY);
+	}
+	
+	@FindBy (id = "in-modal-addr1")
+	WebElement address1Layover;
+	
+	public void enterAddress1AdreessLayover(){
+		address1Layover.clear();
+		address1Layover.sendKeys(Global.ADDRESS);
+	}
+	
+	@FindBy (id = "in-modal-addr2")
+	WebElement address2Layover;
+	
+	@FindBy (id = "in-modal-city")
+	WebElement cityLayover;
+	
+	public void enterCityAdreessLayover(){
+		cityLayover.clear();
+		cityLayover.sendKeys(Global.CITY);
+	}
+	
+	@FindBy (id = "in-modal-state")
+	WebElement stateLayover;
+	
+	public void selectStateAdressLayover(){
+		Select dropdown = new Select(driver.findElement(By.id("in-modal-state")));
+		dropdown.selectByVisibleText("New York");
+	}
+	
+	@FindBy (id = "in-modal-zip")
+	WebElement zipLayover;
+	
+	public void enterZIPAdreessLayover(){
+		zipLayover.clear();
+		zipLayover.sendKeys(Global.ZIP_CODE);
+	}
+	
+	@FindBy (id = "in-modal-phone")
+	WebElement phoneLayover;
+	
+	public void enterPhoneAdreessLayover(){
+		phoneLayover.clear();
+		phoneLayover.sendKeys(Global.PHONE_NUM);
+	}
+
+	@FindBy (xpath = "//button[contains(text(), 'Update Address')]")
+	WebElement updateAddressButton;
+	
+	public void clickUpdateAddressButton(){
+		updateAddressButton.click();
+	}
+	
+	@FindBy (xpath = "//button[contains(text(), 'Cancel')]")
+	WebElement cancelAddressButton;
+	
+	public void clickCancelAddressButton(){
+		cancelAddressButton.click();
+	}
+	
+	
+	/* 
+	 * Gift certificate field
+	 */
+	
+	@FindBy (xpath = "//a[contains(text(), 'Pay with Gift Certificate')]")
+	WebElement payWithGiftCertificateLink;
+	
+	public void clickPayWithGiftCertificateLink(){
+		payWithGiftCertificateLink.click();
+	}
+	
+	@FindBy (xpath = "//input[@name = 'code']")
+	WebElement giftCertificateField;
+	
+	public void enterGiftCertificateCode(){
+		giftCertificateField.sendKeys(Global.GIFT_CERTIFICATE_CODE);
+	}
+	
+	@FindBy (xpath = ".//*[@id='gift-certificate-form']//button[contains(text(), 'Apply')]")
+	WebElement applyGiftCertificateButton;
+	
+	public void clickApplyGiftCertificateButton(){
+		applyGiftCertificateButton.click();
+	}
+	
+	@FindBy (xpath = "//a[@data-action = 'remove']")
+	WebElement removeGiftCertificateButton;
+	
+	public void clickRemoveGiftCertificateButton(){
+		removeGiftCertificateButton.click();
+	}
+	
+	@FindBy (xpath = "//a[contains(text(), 'Add other Gift Certificate')]")
+	WebElement addOtherGiftCertificateLink;
+	
+	public void clickAddOtherGiftCertificateLink(){
+		addOtherGiftCertificateLink.click();
+	}
+	
+	
+	/*
+	 * Promo code
+	 */
+	
+	@FindBy (id = "promocode")
+	WebElement promocodeField;
+	
+	public void enterPromocodeItemLevel(){
+		promocodeField.sendKeys(Global.PROMOCODE_ITEMLEVEL);
+	}
+	
+	public void enterPromocodeOrderLevel(){
+		promocodeField.sendKeys(Global.PROMOCODE_ORDERLEVEL);
+	}
+	
+	@FindBy (xpath = ".//*[@id='promo-code-container']//button[contains(text(), 'Apply')]")
+	WebElement applyPromocodeButton;
+	
+	public void clickApplyPromocode(){
+		applyPromocodeButton.click();
+	}
+	
+	@FindBy (css = ".icon-remove")
+	WebElement removePromocodeIcon;
+	
+	public void clickRemovePromocodeIcon(){
+		removePromocodeIcon.click();
+	}
+	
+	
+	/* 
+	 * PayPal
+	 */
+	@FindBy (xpath = ".//*[@id='wizard-step-content']//a[@data-type='paypal']")
+	WebElement payPalLink;
+	
+	public void selectPayPalAsPaymentMethod(){
+		payPalLink.click();
+	}
+	
+	@FindBy (xpath = "(.//*[@id='wizard-content']//button[contains(text(), 'Continue to Paypal')])[2]")
+	WebElement continueToPayPalButton;
+	
+	public void clickContinueToPayPalButton(){
+		continueToPayPalButton.click();
+	}
+	
+	@FindBy (id = "login_email")
+	WebElement emailFieldForPayPal;
+	
+	@FindBy (id = "login_password")
+	WebElement passwordFieldForPayPal;	
+	
+	@FindBy (id = "submitLogin")
+	WebElement loginIntoPayPalButton;
+	
+	public void proceedViaPayPalService() throws InterruptedException{
+		emailFieldForPayPal.clear();
+		emailFieldForPayPal.sendKeys(Global.PAYPAL_EMAIL_ID);
+		passwordFieldForPayPal.clear();
+		passwordFieldForPayPal.sendKeys(Global.PAYPAL_PASS);
+		loginIntoPayPalButton.click();
+		Thread.sleep(1000);
+		continueButtonPayPalService.click();
+	}
+	
+	
+	@FindBy (id = "continue_abovefold")
+	WebElement continueButtonPayPalService;
+	
+	public void clickContinueButtonPayPalService(){
+		continueButtonPayPalService.click();
+	}
+	
+	@FindBy (xpath = ".//*[@id='wizard-step-content']//b[contains(text(), 'Payment via Paypal')]")
+	WebElement payPalPaymentSection;
+	
+	public String getPayPalPaymentSectionXpath(){
+		return ".//*[@id='wizard-step-content']//b[contains(text(), 'Payment via Paypal')]";
+	}
 	
 	
 	

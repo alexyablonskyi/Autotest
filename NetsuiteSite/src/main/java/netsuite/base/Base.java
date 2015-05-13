@@ -25,13 +25,13 @@ public class Base extends Utilities {
 	public void browserLaunch(){
  		driver.get("http://sandbox.poppin.com");
 	}
- 	
+ 	/*
  	@AfterMethod
  	public void verifyIfLogin(){
  		isUserLoggin();
  	//	driver.close();
  	}
- 	
+ 	*/
 	@AfterClass
 	public void tearDown(){
 		driver.quit();	

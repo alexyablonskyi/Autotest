@@ -54,12 +54,12 @@ public class Utilities {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator)));
 	}
 	
-	public void waitForElementVisibleCss(String locator){
+	public static void waitForElementVisibleCss(String locator){
 		WebDriverWait wait = new WebDriverWait(driver, 60);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(locator)));
 	}
 	
-	public void waitForElementVisibleID(String locator){
+	public static void waitForElementVisibleID(String locator){
 		WebDriverWait wait = new WebDriverWait(driver, 60);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(locator)));
 	}
