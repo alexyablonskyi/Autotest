@@ -3,6 +3,7 @@ package netsuite.pages;
 import netsuite.values.Global;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -25,7 +26,8 @@ public class Checkout {
 	@FindBy (xpath = "(//*[contains(text(), 'Continue')])[3]")
 	WebElement continueButtonOnBillingStep;
 	
-	public void clickContinueButtonOnBillingStep(){
+	public void clickContinueButtonOnBillingStep() throws InterruptedException{
+		Thread.sleep(3000);
 		continueButtonOnBillingStep.click();
 	}
 	
@@ -51,7 +53,6 @@ public class Checkout {
 	}
 	
 	
-	
 	/*
 	 * Confirmation order message
 	 */
@@ -70,26 +71,11 @@ public class Checkout {
 	@FindBy (id = "shipaddress-fullname")
 	WebElement fullName;
 	
-	public void enterFullNameShippingAdreess(){
-		fullName.clear();
-		fullName.sendKeys(Global.NAME);
-	}
-	
 	@FindBy (id = "shipaddress-company")
 	WebElement company;
 	
-	public void enterCompanyShippingAdreess(){
-		company.clear();
-		company.sendKeys(Global.COMPANY);
-	}
-	
 	@FindBy (id = "shipaddress-addr1")
 	WebElement address1;
-	
-	public void enterAddress1ShippingAdreess(){
-		address1.clear();
-		address1.sendKeys(Global.ADDRESS);
-	}
 	
 	@FindBy (id = "shipaddress-addr2")
 	WebElement address2;
@@ -97,42 +83,22 @@ public class Checkout {
 	@FindBy (id = "shipaddress-city")
 	WebElement city;
 	
-	public void enterCityShippingAdreess(){
-		city.clear();
-		city.sendKeys(Global.CITY);
-	}
-	
 	@FindBy (id = "shipaddress-state")
 	WebElement state;
-	
-	public void selectState(){
-		Select dropdown = new Select(driver.findElement(By.id("shipaddress-state")));
-		dropdown.selectByVisibleText("New York");
-	}
-	
 	
 	@FindBy (id = "shipaddress-zip")
 	WebElement zip;
 	
-	public void enterZIPShippingAdreess(){
-		zip.clear();
-		zip.sendKeys(Global.ZIP_CODE);
-	}
-	
 	@FindBy (id = "shipaddress-phone")
 	WebElement phone;
 	
-	public void enterPhoneShippingAdreess(){
-		phone.clear();
-		phone.sendKeys(Global.PHONE_NUM);
-	}
-	
 	public void enterShippingAddress() throws InterruptedException{
-		enterAddress1ShippingAdreess();
-		enterCityShippingAdreess();
-		selectState();
-		enterZIPShippingAdreess();
-		enterPhoneShippingAdreess();
+		address1.sendKeys(Global.ADDRESS);
+		city.sendKeys(Global.CITY);
+		Select dropdown = new Select(driver.findElement(By.id("shipaddress-state")));
+		dropdown.selectByVisibleText("New York");
+		zip.sendKeys(Global.ZIP_CODE);
+		phone.sendKeys(Global.PHONE_NUM);
 		clickContinueButtonOnShippingStep();
 	}
 	
@@ -228,26 +194,11 @@ public class Checkout {
 	@FindBy (id = "in-modal-fullname")
 	WebElement fullNameLayover;
 	
-	public void enterFullNameAdreessLayover(){
-		fullNameLayover.clear();
-		fullNameLayover.sendKeys(Global.NAME);
-	}
-	
 	@FindBy (id = "in-modal-company")
 	WebElement companyLayover;
 	
-	public void enterCompanyAdreessLayover(){
-		companyLayover.clear();
-		companyLayover.sendKeys(Global.COMPANY);
-	}
-	
 	@FindBy (id = "in-modal-addr1")
 	WebElement address1Layover;
-	
-	public void enterAddress1AdreessLayover(){
-		address1Layover.clear();
-		address1Layover.sendKeys(Global.ADDRESS);
-	}
 	
 	@FindBy (id = "in-modal-addr2")
 	WebElement address2Layover;
@@ -255,48 +206,35 @@ public class Checkout {
 	@FindBy (id = "in-modal-city")
 	WebElement cityLayover;
 	
-	public void enterCityAdreessLayover(){
-		cityLayover.clear();
-		cityLayover.sendKeys(Global.CITY);
-	}
-	
 	@FindBy (id = "in-modal-state")
 	WebElement stateLayover;
-	
-	public void selectStateAdressLayover(){
-		Select dropdown = new Select(driver.findElement(By.id("in-modal-state")));
-		dropdown.selectByVisibleText("New York");
-	}
 	
 	@FindBy (id = "in-modal-zip")
 	WebElement zipLayover;
 	
-	public void enterZIPAdreessLayover(){
-		zipLayover.clear();
-		zipLayover.sendKeys(Global.ZIP_CODE);
-	}
-	
 	@FindBy (id = "in-modal-phone")
 	WebElement phoneLayover;
-	
-	public void enterPhoneAdreessLayover(){
-		phoneLayover.clear();
-		phoneLayover.sendKeys(Global.PHONE_NUM);
-	}
 
 	@FindBy (xpath = "//button[contains(text(), 'Update Address')]")
 	WebElement updateAddressButton;
 	
-	public void clickUpdateAddressButton(){
-		updateAddressButton.click();
-	}
-	
 	@FindBy (xpath = "//button[contains(text(), 'Cancel')]")
 	WebElement cancelAddressButton;
 	
-	public void clickCancelAddressButton(){
-		cancelAddressButton.click();
+
+	public void addNewAddressViaLayover(){
+		fullNameLayover.sendKeys(Global.NAME);
+		companyLayover.sendKeys(Global.COMPANY);
+		address1Layover.sendKeys(Global.ADDRESS);
+		cityLayover.sendKeys(Global.CITY);
+		Select dropdown = new Select(driver.findElement(By.id("in-modal-state")));
+		dropdown.selectByVisibleText("New York");
+		zipLayover.sendKeys(Global.ZIP_CODE);
+		phoneLayover.sendKeys(Global.PHONE_NUM);
+		updateAddressButton.click();
 	}
+	
+	
 	
 	
 	/* 
@@ -420,7 +358,44 @@ public class Checkout {
 		return ".//*[@id='wizard-step-content']//b[contains(text(), 'Payment via Paypal')]";
 	}
 	
+	/*
+	 * The same as Shipping address checkbox
+	 */
+	@FindBy (xpath = ".//*[@id='wizard-step-content']//input[@type='checkbox']")
+	WebElement checkboxSameAsShippingAddress;
+
+	public void checkSameAsShippingAddressCheckbox(){
+		if(driver.findElement(By.xpath(".//*[@id='wizard-step-content']//input[@type='checkbox']")).isSelected()){
+			System.out.println("Checkbox is checked");
+		} else {
+			checkboxSameAsShippingAddress.click();
+		}
+	}
 	
+	public void uncheckSameAsShippingAddressCheckbox(){
+		if(driver.findElement(By.xpath(".//*[@id='wizard-step-content']//input[@type='checkbox']")).isSelected()){
+			checkboxSameAsShippingAddress.click();
+		} else {
+			System.out.println("Checkbox is checked(Uncheck)");
+		}
+	}
+	
+	/*
+	 * Add new address link
+	 */
+	@FindBy (xpath = ".//*[@id='address-module-list-placeholder']//a[contains(text(), 'Add New Address')]")
+	WebElement addNewAddressLink;
+	
+	public void clickAddNewAddressLink(){
+		addNewAddressLink.click();
+	}
+	
+	@FindBy (xpath = "(.//*[@id='address-module-list-placeholder']//button[contains(text(), 'Use this Address')])[last()]")
+	WebElement useThisAddressButton;
+	
+	public void clickUseThisAddessButton(){
+		useThisAddressButton.click();
+	}
 	
 	
 	

@@ -28,11 +28,13 @@ import org.openqa.selenium.support.PageFactory;
 	@FindBy (id="go")
 	WebElement goSearching;
 	
-	public void searchingItem(){
+	public void searchingInventoryItem(String item){
 		search.clear();
-		search.sendKeys("ruler");
+		search.sendKeys(item);
 		goSearching.click();
 	}
+	
+	
 	
 	/* 
 	 * Add to cart button
@@ -65,9 +67,9 @@ import org.openqa.selenium.support.PageFactory;
 		checkoutButton.click();
 	}
 	
-	public void addItemViaSearch() {
+	public void addItemViaSearch(String item) {
 		clickOnMiniCart();
-		searchingItem();
+		searchingInventoryItem(item);
 		clickAddToCartButton();
 		clickOnMiniCart();
 	}

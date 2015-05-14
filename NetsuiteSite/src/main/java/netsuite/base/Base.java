@@ -16,11 +16,12 @@ import org.testng.annotations.BeforeTest;
 
 public class Base extends Utilities {
 
- 	@BeforeClass
+ 	@BeforeMethod
 	public void driverSetup(){
  		automationProfile();
+ 		driver.get("http://sandbox.poppin.com");
  	}
- 	
+ 	/*
  	@BeforeMethod
 	public void browserLaunch(){
  		driver.get("http://sandbox.poppin.com");
@@ -31,8 +32,8 @@ public class Base extends Utilities {
  		isUserLoggin();
  	//	driver.close();
  	}
- 	*/
-	@AfterClass
+ */
+	@AfterMethod
 	public void tearDown(){
 		driver.quit();	
 	} 
