@@ -37,5 +37,14 @@ public class Base extends Utilities {
 	public void tearDown(){
 		driver.quit();	
 	} 
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
 

@@ -15,7 +15,10 @@ import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.firefox.internal.ProfilesIni;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.google.common.base.Stopwatch;
 
 
 public class Utilities {
@@ -101,5 +104,18 @@ public class Utilities {
 		WebDriverWait wait = new WebDriverWait(driver, 30);
 		wait.until(pageLoadCondition);
 	}
+
+	/*
+	 * Wait for AJAX request completed
+	 */
 	
+    public static void waitUntilAjaxRequestCompletes() {
+        new FluentWait<WebDriver>(driver).withTimeout(30, TimeUnit.SECONDS)
+                        .pollingEvery(1, TimeUnit.SECONDS).until(new ExpectedCondition<Boolean>() {
+                                public Boolean apply(WebDriver d) {
+                                        JavascriptExecutor jsExec = (JavascriptExecutor) d;
+                                        return (Boolean) jsExec.executeScript("return jQuery.active == 0;");
+                                }
+                        });
+    }
 }

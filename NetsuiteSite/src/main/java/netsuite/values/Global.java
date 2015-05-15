@@ -44,6 +44,16 @@ public interface Global {
 	String NON_INVENTORY_ITEM_DROPSHIP		="mini lamp";
 	String KIT_ITEM							="kit";
 
+// Billing Address
+	String BILLING_NAME						="PoppinBilling QA";
+	String BILLING_COMPANY					="QA Automation test";
+	String BILLING_ADDRESS					="1115 Broadway Suite 307";
+	String BILLING_CITY						="New York";
+	String BILLING_ZIP_CODE					="10011";
+	String BILLING_PHONE_NUM				="718-926-0000";
+	String BILLING_NY						="New York";
+	
+	
 }
 
 

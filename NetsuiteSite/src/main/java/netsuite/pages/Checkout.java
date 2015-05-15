@@ -1,5 +1,6 @@
 package netsuite.pages;
 
+import netsuite.utilities.Utilities;
 import netsuite.values.Global;
 
 import org.openqa.selenium.By;
@@ -27,7 +28,7 @@ public class Checkout {
 	WebElement continueButtonOnBillingStep;
 	
 	public void clickContinueButtonOnBillingStep() throws InterruptedException{
-		Thread.sleep(3000);
+		Utilities.waitUntilAjaxRequestCompletes();
 		continueButtonOnBillingStep.click();
 	}
 	
@@ -38,7 +39,7 @@ public class Checkout {
 	WebElement continueButtonOnShippingStep;
 	
 	public void clickContinueButtonOnShippingStep() throws InterruptedException{
-		Thread.sleep(3000);
+		Utilities.waitUntilAjaxRequestCompletes();
 		continueButtonOnShippingStep.click();
 	}
 	
@@ -194,6 +195,10 @@ public class Checkout {
 	@FindBy (id = "in-modal-fullname")
 	WebElement fullNameLayover;
 	
+	public String getFullNameLayoverXpath(){
+		return ".//*[@id='in-modal-fullname']";
+	}
+	
 	@FindBy (id = "in-modal-company")
 	WebElement companyLayover;
 	
@@ -215,26 +220,23 @@ public class Checkout {
 	@FindBy (id = "in-modal-phone")
 	WebElement phoneLayover;
 
-	@FindBy (xpath = "//button[contains(text(), 'Update Address')]")
-	WebElement updateAddressButton;
+	@FindBy (xpath = "//button[contains(text(), 'Save Address')]")
+	WebElement saveAddressButton;
 	
 	@FindBy (xpath = "//button[contains(text(), 'Cancel')]")
 	WebElement cancelAddressButton;
 	
 
 	public void addNewAddressViaLayover(){
-		fullNameLayover.sendKeys(Global.NAME);
-		companyLayover.sendKeys(Global.COMPANY);
-		address1Layover.sendKeys(Global.ADDRESS);
-		cityLayover.sendKeys(Global.CITY);
+		fullNameLayover.sendKeys(Global.BILLING_NAME);
+		address1Layover.sendKeys(Global.BILLING_ADDRESS);
+		cityLayover.sendKeys(Global.BILLING_CITY);
 		Select dropdown = new Select(driver.findElement(By.id("in-modal-state")));
 		dropdown.selectByVisibleText("New York");
-		zipLayover.sendKeys(Global.ZIP_CODE);
-		phoneLayover.sendKeys(Global.PHONE_NUM);
-		updateAddressButton.click();
+		zipLayover.sendKeys(Global.BILLING_ZIP_CODE);
+		phoneLayover.sendKeys(Global.BILLING_PHONE_NUM);
+		saveAddressButton.click();
 	}
-	
-	
 	
 	
 	/* 
@@ -361,11 +363,11 @@ public class Checkout {
 	/*
 	 * The same as Shipping address checkbox
 	 */
-	@FindBy (xpath = ".//*[@id='wizard-step-content']//input[@type='checkbox']")
+	@FindBy (xpath = ".//*[@id='wizard-step-content']//input[@name='same-as-address']")
 	WebElement checkboxSameAsShippingAddress;
 
 	public void checkSameAsShippingAddressCheckbox(){
-		if(driver.findElement(By.xpath(".//*[@id='wizard-step-content']//input[@type='checkbox']")).isSelected()){
+		if(isChecked()){
 			System.out.println("Checkbox is checked");
 		} else {
 			checkboxSameAsShippingAddress.click();
@@ -373,12 +375,23 @@ public class Checkout {
 	}
 	
 	public void uncheckSameAsShippingAddressCheckbox(){
-		if(driver.findElement(By.xpath(".//*[@id='wizard-step-content']//input[@type='checkbox']")).isSelected()){
+		if(isChecked()){
 			checkboxSameAsShippingAddress.click();
 		} else {
-			System.out.println("Checkbox is checked(Uncheck)");
+			System.out.println("Checkbox is already Uncheck");
 		}
 	}
+	
+	public boolean isChecked(){
+		try{
+			boolean tr = driver.findElement(By.xpath(".//*[@id='wizard-step-content']//input[@name='same-as-address']")).isSelected();
+			System.out.println("Checkbox is checked: " + tr);
+			return true;
+		}catch(NoSuchElementException e){
+			return false;
+		}
+	}
+	
 	
 	/*
 	 * Add new address link
@@ -398,9 +411,24 @@ public class Checkout {
 	}
 	
 	
+	/*
+	 * Review page
+	 */
+	//Billing address section
+	@FindBy(xpath = "(.//div[@data-manage='billaddress']//span[@class='address-line'])[1]")
+	WebElement fullNameOfBillingAddress;
 	
+	public String getBillingAddressFullNameText(){
+		return fullNameOfBillingAddress.getText();
+	}
 	
+	//Shipping address section
+	@FindBy(xpath = "(.//div[@data-manage='shipaddress']//span[@class='address-line'])[1]")
+	WebElement fullNameOfShippingAddress;
 	
+	public String getShippingAddressFullNameText(){
+		return fullNameOfShippingAddress.getText();
+	}
 	
 	
 }

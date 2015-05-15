@@ -36,7 +36,6 @@ public class CheckoutTests extends Base {
 	}
 
 
-	
 	@Test(enabled= false, priority=1, groups = {""}, 
 			description= "Process checkout as New Customer")
 	public void processCheckoutAsNewCustomer() throws Exception{
@@ -59,36 +58,7 @@ public class CheckoutTests extends Base {
 		Assert.assertTrue(isElementPresent(By.xpath(checkout.getConfirmationOrderMessageXpath())));
 	}
 	
-	@Test(enabled= true, priority=1, groups = {""}, 
-			description= "Process checkout as New Customer with different Shipping and Billing addresses")
-	public void processCheckoutAsNewCustomerWithDifferentShippingBillingAddress() throws Exception{
-		shoppingCart = new ShoppingCart(driver);
-		shoppingCart.addItemViaSearch(Global.INVENTORY_ITEM);
-		shoppingCart.clickCheckoutButton();
-		
-		loginPage = new Login(driver);
-		loginPage.createNewIndividualCustomer(Global.FNAME, Global.LNAME, loginPage.getRandomEmailForNewInduvidualCustomer(), Global.QA_PASS);
-		
-		checkout = new Checkout(driver);
-		checkout.enterShippingAddress();
-		Utilities.waitForElementVisibleID(checkout.getDeleiveryOptionId());
-		checkout.clickContinueButtonOnShippingStep();
-		checkout.enterNewCreditCard();
-		checkout.uncheckSameAsShippingAddressCheckbox();
-		
-		/*
-		checkout.clickAddNewAddressLink();
-		checkout.addNewAddressViaLayover();
-		checkout.clickUseThisAddessButton();
-		checkout.enterCVVcode();
-		checkout.clickContinueButtonOnBillingStep();
-		checkout.clickPlaceOrderButton();
-		Utilities.waitForPageLoad(driver);
-		*/
-		Assert.assertTrue(isElementPresent(By.xpath(checkout.getConfirmationOrderMessageXpath())));
-	}
-	
-	
+
 	@Test(enabled= false, priority=2, groups = {""}, 
 			description= "Select PayPal as Payment method for Returning Customer")
 	public void selectPayPalAsPaymentMethod() throws Exception{
@@ -186,5 +156,84 @@ public class CheckoutTests extends Base {
 		
 		Assert.assertTrue(isElementPresent(By.xpath(checkout.getConfirmationOrderMessageXpath())));
 	}
+	
+	@Test(enabled= false, priority=7, groups = {""}, 
+			description= "Select different Shipping and Billing addresses for New Customer")
+	public void selectDifferentShippingAndBillingAddressesForNewCustomer() throws Exception{
+		shoppingCart = new ShoppingCart(driver);
+		shoppingCart.addItemViaSearch(Global.INVENTORY_ITEM);
+		shoppingCart.clickCheckoutButton();
+		
+		loginPage = new Login(driver);
+		loginPage.createNewIndividualCustomer(Global.FNAME, Global.LNAME, loginPage.getRandomEmailForNewInduvidualCustomer(), Global.QA_PASS);
+		
+		checkout = new Checkout(driver);
+		checkout.enterShippingAddress();
+		Utilities.waitForElementVisibleID(checkout.getDeleiveryOptionId());
+		checkout.clickContinueButtonOnShippingStep();
+		checkout.enterNewCreditCard();
+		checkout.uncheckSameAsShippingAddressCheckbox();
+		checkout.clickAddNewAddressLink();
+		Utilities.waitForElementClickable(checkout.getFullNameLayoverXpath());
+		checkout.addNewAddressViaLayover();
+		Utilities.waitUntilAjaxRequestCompletes();
+		checkout.clickUseThisAddessButton();
+		checkout.enterCVVcode();
+		checkout.clickContinueButtonOnBillingStep();
+		Assert.assertNotEquals(checkout.getShippingAddressFullNameText(), checkout.getBillingAddressFullNameText());
+		
+	}
+	
+	@Test(enabled= false, priority=8, groups = {""}, 
+			description= "Verify that the same as Shipping address checkbox is selected by default")
+	public void checkboxTheSameAsShippingAddressSelectedByDefault() throws Exception{
+		shoppingCart = new ShoppingCart(driver);
+		shoppingCart.addItemViaSearch(Global.INVENTORY_ITEM);
+		shoppingCart.clickCheckoutButton();
+		
+		loginPage = new Login(driver);
+		loginPage.createNewIndividualCustomer(Global.FNAME, Global.LNAME, loginPage.getRandomEmailForNewInduvidualCustomer(), Global.QA_PASS);
+		
+		checkout = new Checkout(driver);
+		checkout.enterShippingAddress();
+		Utilities.waitForElementVisibleID(checkout.getDeleiveryOptionId());
+		checkout.clickContinueButtonOnShippingStep();
+		checkout.enterNewCreditCard();
+		
 
+		Assert.assertTrue(checkout.isChecked());
+	}
+	
+	
+	@Test(enabled= true, priority=9, groups = {""}, 
+			description= "Verify that the same as Shipping address checkbox is selected by default")
+	public void testcheckboxTheSameAsShippingAddressSelectedByDefault() throws Exception{
+		shoppingCart = new ShoppingCart(driver);
+		shoppingCart.addItemViaSearch(Global.INVENTORY_ITEM);
+		shoppingCart.clickCheckoutButton();
+		
+		loginPage = new Login(driver);
+		loginPage.loginAsReturningCustomer("oyablonskyi@gmail.com", "myangel250687");
+		checkout = new Checkout(driver);
+		//Utilities.waitForPageLoad(driver);
+		Thread.sleep(15000);
+		
+		Assert.assertTrue(checkout.isChecked());
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
