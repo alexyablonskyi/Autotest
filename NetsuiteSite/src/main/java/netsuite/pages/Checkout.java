@@ -20,7 +20,6 @@ public class Checkout {
 		PageFactory.initElements(driver, this);
 	}
 
-	
 	/*
 	 *  Continue button on Billing step
 	 */
@@ -253,15 +252,20 @@ public class Checkout {
 	@FindBy (xpath = "//input[@name = 'code']")
 	WebElement giftCertificateField;
 	
-	public void enterGiftCertificateCode(){
-		giftCertificateField.sendKeys(Global.GIFT_CERTIFICATE_CODE);
-	}
-	
 	@FindBy (xpath = ".//*[@id='gift-certificate-form']//button[contains(text(), 'Apply')]")
 	WebElement applyGiftCertificateButton;
 	
-	public void clickApplyGiftCertificateButton(){
+	public void applyGiftCertificateCode(String gift){
+		giftCertificateField.sendKeys(gift);
 		applyGiftCertificateButton.click();
+	}
+	
+	public String getAppliedGiftCertificateXpath(){
+		return ".//*[@id='order-wizard-layout']//span[@title='"+Global.GIFT_CERTIFICATE_CODE+"']";
+	}
+	
+	public String getSecondAppliedGiftCertificateXpath(){
+		return ".//*[@id='order-wizard-layout']//span[@title='"+Global.GIFT_CERTIFICATE_CODE_2+"']";
 	}
 	
 	@FindBy (xpath = "//a[@data-action = 'remove']")
@@ -271,14 +275,19 @@ public class Checkout {
 		removeGiftCertificateButton.click();
 	}
 	
-	@FindBy (xpath = "//a[contains(text(), 'Add other Gift Certificate')]")
+	@FindBy (xpath = "//a[contains(text(), 'Add Another Gift Certificate')]")
 	WebElement addOtherGiftCertificateLink;
 	
 	public void clickAddOtherGiftCertificateLink(){
 		addOtherGiftCertificateLink.click();
 	}
 	
+	@FindBy (xpath = ".//*[@id='wizard-step-content']//div[@class='alert alert-error']")
+	WebElement errorMessageForGiftCertificate;
 	
+	public String getTextOfErrorMessageForGiftCertificate(){
+		return errorMessageForGiftCertificate.getText();
+	}
 	/*
 	 * Promo code
 	 */
@@ -286,19 +295,20 @@ public class Checkout {
 	@FindBy (id = "promocode")
 	WebElement promocodeField;
 	
-	public void enterPromocodeItemLevel(){
-		promocodeField.sendKeys(Global.PROMOCODE_ITEMLEVEL);
-	}
-	
-	public void enterPromocodeOrderLevel(){
-		promocodeField.sendKeys(Global.PROMOCODE_ORDERLEVEL);
+	public void applyPromocode(String promocode){
+		promocodeField.sendKeys(promocode);
+		applyPromocodeButton.click();
 	}
 	
 	@FindBy (xpath = ".//*[@id='promo-code-container']//button[contains(text(), 'Apply')]")
 	WebElement applyPromocodeButton;
 	
-	public void clickApplyPromocode(){
-		applyPromocodeButton.click();
+	public String getAppliedItemLevelPromocodeXpath(){
+		return ".//*[@id='order-wizard-layout']//p[contains(text(),"+Global.PROMOCODE_ITEMLEVEL+")]";
+	}
+	
+	public String getAppliedOrderLevelPromocodeXpath(){
+		return ".//*[@id='order-wizard-layout']//p[contains(text(),"+Global.PROMOCODE_ORDERLEVEL+")]";
 	}
 	
 	@FindBy (css = ".icon-remove")
@@ -308,6 +318,12 @@ public class Checkout {
 		removePromocodeIcon.click();
 	}
 	
+	@FindBy (xpath = ".//*[@id='promo-code-container']//div[@class='alert alert-error']")
+	WebElement errorMessageForPromocode;
+	
+	public String getTextOfErrorMessageForPromocode(){
+		return errorMessageForPromocode.getText();
+	}
 	
 	/* 
 	 * PayPal

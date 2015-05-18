@@ -93,6 +93,9 @@ public class Utilities {
 		}
 	}
 	
+	/*
+	 * Wait for Page is loaded (All JavaScript completed)
+	 */
 	
 	public static void waitForPageLoad(WebDriver driver) {
 	    ExpectedCondition <Boolean> pageLoadCondition = new
@@ -111,11 +114,11 @@ public class Utilities {
 	
     public static void waitUntilAjaxRequestCompletes() {
         new FluentWait<WebDriver>(driver).withTimeout(30, TimeUnit.SECONDS)
-                        .pollingEvery(1, TimeUnit.SECONDS).until(new ExpectedCondition<Boolean>() {
-                                public Boolean apply(WebDriver d) {
-                                        JavascriptExecutor jsExec = (JavascriptExecutor) d;
-                                        return (Boolean) jsExec.executeScript("return jQuery.active == 0;");
-                                }
-                        });
+            .pollingEvery(1, TimeUnit.SECONDS).until(new ExpectedCondition<Boolean>() {
+                    public Boolean apply(WebDriver d) {
+                            JavascriptExecutor jsExec = (JavascriptExecutor) d;
+                            return (Boolean) jsExec.executeScript("return jQuery.active == 0;");
+                    }
+            });
     }
 }
