@@ -180,6 +180,7 @@ public class CheckoutTests extends Base {
 		checkout.clickUseThisAddessButton();
 		checkout.enterCVVcode();
 		checkout.clickContinueButtonOnBillingStep();
+		
 		Assert.assertNotEquals(checkout.getShippingAddressFullNameText(), checkout.getBillingAddressFullNameText());
 		
 	}
@@ -200,26 +201,9 @@ public class CheckoutTests extends Base {
 		checkout.clickContinueButtonOnShippingStep();
 		checkout.enterNewCreditCard();
 		
-
-		Assert.assertTrue(checkout.isChecked());
+		Assert.assertTrue(checkout.isChecked(By.xpath(checkout.getCheckboxSameAsShippingAddressXpath())));
 	}
 	
-	
-	@Test(enabled= true, priority=9, groups = {""}, 
-			description= "Verify that the same as Shipping address checkbox is selected by default")
-	public void testcheckboxTheSameAsShippingAddressSelectedByDefault() throws Exception{
-		shoppingCart = new ShoppingCart(driver);
-		shoppingCart.addItemViaSearch(Global.INVENTORY_ITEM);
-		shoppingCart.clickCheckoutButton();
-		
-		loginPage = new Login(driver);
-		loginPage.loginAsReturningCustomer("oyablonskyi@gmail.com", "myangel250687");
-		checkout = new Checkout(driver);
-		//Utilities.waitForPageLoad(driver);
-		Thread.sleep(15000);
-		
-		Assert.assertTrue(checkout.isChecked());
-	}
 	
 	
 	

@@ -366,8 +366,12 @@ public class Checkout {
 	@FindBy (xpath = ".//*[@id='wizard-step-content']//input[@name='same-as-address']")
 	WebElement checkboxSameAsShippingAddress;
 
+	public String getCheckboxSameAsShippingAddressXpath(){
+		return ".//*[@id='wizard-step-content']//input[@name='same-as-address']";
+	}
+	
 	public void checkSameAsShippingAddressCheckbox(){
-		if(isChecked()){
+		if(isChecked(By.xpath(getCheckboxSameAsShippingAddressXpath()))){
 			System.out.println("Checkbox is checked");
 		} else {
 			checkboxSameAsShippingAddress.click();
@@ -375,19 +379,19 @@ public class Checkout {
 	}
 	
 	public void uncheckSameAsShippingAddressCheckbox(){
-		if(isChecked()){
+		if(isChecked(By.xpath(getCheckboxSameAsShippingAddressXpath()))){
 			checkboxSameAsShippingAddress.click();
 		} else {
 			System.out.println("Checkbox is already Uncheck");
 		}
 	}
 	
-	public boolean isChecked(){
-		try{
-			boolean tr = driver.findElement(By.xpath(".//*[@id='wizard-step-content']//input[@name='same-as-address']")).isSelected();
-			System.out.println("Checkbox is checked: " + tr);
+	public boolean isChecked(By by){
+		if (driver.findElement(By.xpath(getCheckboxSameAsShippingAddressXpath())).isSelected()){
+			System.out.println("Checkbox is checked");
 			return true;
-		}catch(NoSuchElementException e){
+		}else{
+			System.out.println("Checkbox is NOT checked");
 			return false;
 		}
 	}
