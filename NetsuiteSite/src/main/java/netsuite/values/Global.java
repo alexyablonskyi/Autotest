@@ -49,6 +49,7 @@ public interface Global {
 	String INVENTORY_ITEM_DROPSHIP			="Orange Campfire Ottoman";
 	String NON_INVENTORY_ITEM_DROPSHIP		="mini lamp";
 	String KIT_ITEM							="kit";
+	String NON_TAXABLE_ITEM					="Red Block Party Lounge Bench";
 
 // Billing Address
 	String BILLING_NAME						="PoppinBilling QA";
@@ -57,9 +58,22 @@ public interface Global {
 	String BILLING_CITY						="New York";
 	String BILLING_ZIP_CODE					="10011";
 	String BILLING_PHONE_NUM				="718-926-0000";
-	String BILLING_NY						="New York";
 	
+// NJ Shipping Address
+	String BILLING_NJ_NAME					="New Jersey Shipping";
+	String BILLING_NJ_ADDRESS				="45 Cassville Rd Test";
+	String BILLING_NJ_CITY					="Jackson";
+	String BILLING_NJ_ZIP_CODE				="08527";
+	String BILLING_NJ_PHONE_NUM				="718-926-0000";
+
 	
+// Non taxable Shipping address
+	String BILLING_NONTAX_NAME				="Non Taxable Shipping";
+	String BILLING_NONTAX_ADDRESS			="555 E Lafayette St Test";
+	String BILLING_NONTAX_CITY				="Detroit";
+	String BILLING_NONTAX_ZIP_CODE			="48226";
+	String BILLING_NONTAX_PHONE_NUM			="718-926-0000";
+
 }
 
 

@@ -157,7 +157,7 @@ public class CheckoutTests extends Base {
 		Assert.assertTrue(isElementPresent(By.xpath(checkout.getConfirmationOrderMessageXpath())));
 	}
 	
-	@Test(enabled= false, priority=7, groups = {""}, 
+	@Test(enabled= false, priority=7, groups = {"New Customer"}, 
 			description= "Select different Shipping and Billing addresses for New Customer")
 	public void selectDifferentShippingAndBillingAddressesForNewCustomer() throws Exception{
 		shoppingCart = new ShoppingCart(driver);
@@ -175,7 +175,7 @@ public class CheckoutTests extends Base {
 		checkout.uncheckSameAsShippingAddressCheckbox();
 		checkout.clickAddNewAddressLink();
 		Utilities.waitForElementClickable(checkout.getFullNameLayoverXpath());
-		checkout.addNewAddressViaLayover();
+		checkout.enterNewAddressViaLayover();
 		Utilities.waitUntilAjaxRequestCompletes();
 		checkout.clickUseThisAddessButton();
 		checkout.enterCVVcode();
@@ -185,7 +185,7 @@ public class CheckoutTests extends Base {
 		
 	}
 	
-	@Test(enabled= false, priority=8, groups = {""}, 
+	@Test(enabled= false, priority=8, groups = {"New Customer"}, 
 			description= "Verify that the same as Shipping address checkbox is selected by default")
 	public void checkboxTheSameAsShippingAddressSelectedByDefault() throws Exception{
 		shoppingCart = new ShoppingCart(driver);
@@ -217,7 +217,7 @@ public class CheckoutTests extends Base {
 		
 		checkout = new Checkout(driver);
 		checkout.applyPromocode(Global.PROMOCODE_ITEMLEVEL);
-				
+		
 		Assert.assertTrue(isElementPresent(By.xpath(checkout.getAppliedItemLevelPromocodeXpath())));
 	}
 	
@@ -363,5 +363,181 @@ public class CheckoutTests extends Base {
 		
 		Assert.assertTrue(checkout.getTextOfErrorMessageForGiftCertificate().contains("Gift certificate redemption amount exceeds available amount on the gift certificate"));
 	}
+	
+	@Test(enabled= false, priority=18, groups = {"Tax"}, 
+			description= "Check that tax will be calculated in case of NY Shipping address")
+	public void calculateTaxForNYAddress() throws Exception{
+		shoppingCart = new ShoppingCart(driver);
+		shoppingCart.addItemViaSearch(Global.INVENTORY_ITEM);
+		shoppingCart.clickCheckoutButton();
+		
+		loginPage = new Login(driver);
+		loginPage.createNewIndividualCustomer(Global.FNAME, Global.LNAME, loginPage.getRandomEmailForNewInduvidualCustomer(), Global.QA_PASS);
+		
+		checkout = new Checkout(driver);
+		checkout.enterShippingAddress();
+		Utilities.waitForElementVisibleID(checkout.getDeleiveryOptionId());
+		System.out.println(checkout.getTaxValueFromTotalSection());
+		
+		Assert.assertNotEquals(checkout.getTaxValueFromTotalSection(), "-");
+	}
+	
+	@Test(enabled= false, priority=19, groups = {"Tax"}, 
+			description= "Check that tax will be calculated in case of NJ Shipping address")
+	public void calculateTaxForNJAddress() throws Exception{
+		shoppingCart = new ShoppingCart(driver);
+		shoppingCart.addItemViaSearch(Global.INVENTORY_ITEM);
+		shoppingCart.clickCheckoutButton();
+		
+		loginPage = new Login(driver);
+		loginPage.createNewIndividualCustomer(Global.FNAME, Global.LNAME, loginPage.getRandomEmailForNewInduvidualCustomer(), Global.QA_PASS);
+		
+		checkout = new Checkout(driver);
+		checkout.enterNJShippingAddress();
+		Utilities.waitForElementVisibleID(checkout.getDeleiveryOptionId());
+		System.out.println(checkout.getTaxValueFromTotalSection());
+		
+		Assert.assertNotEquals(checkout.getTaxValueFromTotalSection(), "-");
+	}
+	
+	@Test(enabled= false, priority=20, groups = {"Tax"}, 
+			description= "Check that tax will NOT be calculated in case of Non-Taxable Shipping address")
+	public void calculateTaxForNonTaxableAddress() throws Exception{
+		shoppingCart = new ShoppingCart(driver);
+		shoppingCart.addItemViaSearch(Global.INVENTORY_ITEM);
+		shoppingCart.clickCheckoutButton();
+		
+		loginPage = new Login(driver);
+		loginPage.createNewIndividualCustomer(Global.FNAME, Global.LNAME, loginPage.getRandomEmailForNewInduvidualCustomer(), Global.QA_PASS);
+		
+		checkout = new Checkout(driver);
+		checkout.enterNonTaxableShippingAddress();
+		Utilities.waitForElementVisibleID(checkout.getDeleiveryOptionId());
+		System.out.println(checkout.getTaxValueFromTotalSection());
+		
+		Assert.assertEquals(checkout.getTaxValueFromTotalSection(), "-");
+	}
+	
+	@Test(enabled= false, priority=21, groups = {"Tax"}, 
+			description= "Check that tax will be re-calculated in case of change from NY to NJ address")
+	public void recalculateTaxAfterChangeAddressFromNYToNJ() throws Exception{
+		shoppingCart = new ShoppingCart(driver);
+		shoppingCart.addItemViaSearch(Global.INVENTORY_ITEM);
+		shoppingCart.clickCheckoutButton();
+		
+		loginPage = new Login(driver);
+		loginPage.createNewIndividualCustomer(Global.FNAME, Global.LNAME, loginPage.getRandomEmailForNewInduvidualCustomer(), Global.QA_PASS);
+		
+		checkout = new Checkout(driver);
+		checkout.enterShippingAddress();
+		Utilities.waitForElementVisibleID(checkout.getDeleiveryOptionId());
+		
+		String taxValueOfNY = checkout.getTaxValueFromTotalSection();
+		System.out.println(taxValueOfNY);
+		
+		checkout.clickChangeAddressLink();
+		checkout.clickAddNewAddressLink();
+		Utilities.waitForElementClickable(checkout.getFullNameLayoverXpath());
+		checkout.enterNewNJAddressViaLayover();
+		Utilities.waitUntilAjaxRequestCompletes();
+		checkout.clickShipToThisAddressButton();
+		Utilities.waitForElementVisibleID(checkout.getDeleiveryOptionId());
+
+		String taxValueOfNJ = checkout.getTaxValueFromTotalSection();
+		System.out.println(taxValueOfNJ);
+		
+		Assert.assertNotEquals(taxValueOfNY, taxValueOfNJ);
+		
+	}
+	
+	@Test(enabled= false, priority=22, groups = {"Tax"}, 
+			description= "Check that tax will be re-calculated in case of change from Taxable (NY/NJ) to Non-taxable address")
+	public void recalculateTaxAfterChangeAddressFromTaxableToNonTaxable() throws Exception{
+		shoppingCart = new ShoppingCart(driver);
+		shoppingCart.addItemViaSearch(Global.INVENTORY_ITEM);
+		shoppingCart.clickCheckoutButton();
+		
+		loginPage = new Login(driver);
+		loginPage.createNewIndividualCustomer(Global.FNAME, Global.LNAME, loginPage.getRandomEmailForNewInduvidualCustomer(), Global.QA_PASS);
+		
+		checkout = new Checkout(driver);
+		checkout.enterShippingAddress();
+		Utilities.waitForElementVisibleID(checkout.getDeleiveryOptionId());
+		
+		String taxValueOfNY = checkout.getTaxValueFromTotalSection();
+		System.out.println(taxValueOfNY);
+		
+		checkout.clickChangeAddressLink();
+		checkout.clickAddNewAddressLink();
+		Utilities.waitForElementClickable(checkout.getFullNameLayoverXpath());
+		checkout.enterNewNonTaxableAddressViaLayover();
+		Utilities.waitUntilAjaxRequestCompletes();
+		checkout.clickShipToThisAddressButton();
+		Utilities.waitForElementVisibleID(checkout.getDeleiveryOptionId());
+
+		String taxValueOfNonTaxable = checkout.getTaxValueFromTotalSection();
+		System.out.println(taxValueOfNonTaxable);
+		
+		Assert.assertNotEquals(taxValueOfNY, taxValueOfNonTaxable);
+		
+	}
+	
+	
+	@Test(enabled= false, priority=23, groups = {"Tax"}, 
+			description= "Check that tax will be re-calculated in case of change from Non-taxable to Taxable (NY/NJ) address")
+	public void recalculateTaxAfterChangeAddressFromNonTaxableToTaxable() throws Exception{
+		shoppingCart = new ShoppingCart(driver);
+		shoppingCart.addItemViaSearch(Global.INVENTORY_ITEM);
+		shoppingCart.clickCheckoutButton();
+		
+		loginPage = new Login(driver);
+		loginPage.createNewIndividualCustomer(Global.FNAME, Global.LNAME, loginPage.getRandomEmailForNewInduvidualCustomer(), Global.QA_PASS);
+		
+		checkout = new Checkout(driver);
+		checkout.enterNonTaxableShippingAddress();
+		Utilities.waitForElementVisibleID(checkout.getDeleiveryOptionId());
+		
+		String taxValueOfNonTaxable = checkout.getTaxValueFromTotalSection();
+		System.out.println(taxValueOfNonTaxable);
+		
+		checkout.clickChangeAddressLink();
+		checkout.clickAddNewAddressLink();
+		Utilities.waitForElementClickable(checkout.getFullNameLayoverXpath());
+		checkout.enterNewNJAddressViaLayover();
+		Utilities.waitUntilAjaxRequestCompletes();
+		checkout.clickShipToThisAddressButton();
+		Utilities.waitForElementVisibleID(checkout.getDeleiveryOptionId());
+
+		String taxValueOfNJ = checkout.getTaxValueFromTotalSection();
+		System.out.println(taxValueOfNJ);
+		
+		Assert.assertNotEquals(taxValueOfNJ, taxValueOfNonTaxable);
+		
+	}
+	
+	
+	@Test(enabled= false, priority=24, groups = {"Tax"}, 
+			description= "Check that tax will NOT be calculated in case of Non-Taxable item in order")
+	public void nonCalculatedTaxForNonTaxableItems() throws Exception{
+		shoppingCart = new ShoppingCart(driver);
+		shoppingCart.addItemViaSearch(Global.NON_TAXABLE_ITEM);
+		shoppingCart.clickCheckoutButton();
+		
+		loginPage = new Login(driver);
+		loginPage.createNewIndividualCustomer(Global.FNAME, Global.LNAME, loginPage.getRandomEmailForNewInduvidualCustomer(), Global.QA_PASS);
+		
+		checkout = new Checkout(driver);
+		checkout.enterShippingAddress();
+		Utilities.waitForElementVisibleID(checkout.getDeleiveryOptionId());
+		System.out.println(checkout.getTaxValueFromTotalSection());
+		
+		Assert.assertEquals(checkout.getTaxValueFromTotalSection(), "-");
+	}
+	
+	
+	
+	
+	
+	
 	
 }

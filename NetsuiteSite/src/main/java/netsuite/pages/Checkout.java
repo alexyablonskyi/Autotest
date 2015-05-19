@@ -102,6 +102,25 @@ public class Checkout {
 		clickContinueButtonOnShippingStep();
 	}
 	
+	public void enterNJShippingAddress() throws InterruptedException{
+		address1.sendKeys(Global.BILLING_NJ_ADDRESS);
+		city.sendKeys(Global.BILLING_NJ_CITY);
+		Select dropdown = new Select(driver.findElement(By.id("shipaddress-state")));
+		dropdown.selectByVisibleText("New Jersey");
+		zip.sendKeys(Global.BILLING_NJ_ZIP_CODE);
+		phone.sendKeys(Global.BILLING_NJ_PHONE_NUM);
+		clickContinueButtonOnShippingStep();
+	}
+	
+	public void enterNonTaxableShippingAddress() throws InterruptedException{
+		address1.sendKeys(Global.BILLING_NONTAX_ADDRESS);
+		city.sendKeys(Global.BILLING_NONTAX_CITY);
+		Select dropdown = new Select(driver.findElement(By.id("shipaddress-state")));
+		dropdown.selectByVisibleText("Michigan");
+		zip.sendKeys(Global.BILLING_NONTAX_ZIP_CODE);
+		phone.sendKeys(Global.BILLING_NONTAX_PHONE_NUM);
+		clickContinueButtonOnShippingStep();
+	}
 	
 	/*
 	 * Delivery methods
@@ -226,7 +245,7 @@ public class Checkout {
 	WebElement cancelAddressButton;
 	
 
-	public void addNewAddressViaLayover(){
+	public void enterNewAddressViaLayover(){
 		fullNameLayover.sendKeys(Global.BILLING_NAME);
 		address1Layover.sendKeys(Global.BILLING_ADDRESS);
 		cityLayover.sendKeys(Global.BILLING_CITY);
@@ -237,6 +256,27 @@ public class Checkout {
 		saveAddressButton.click();
 	}
 	
+	public void enterNewNJAddressViaLayover(){
+		fullNameLayover.sendKeys(Global.BILLING_NJ_NAME);
+		address1Layover.sendKeys(Global.BILLING_NJ_ADDRESS);
+		cityLayover.sendKeys(Global.BILLING_NJ_CITY);
+		Select dropdown = new Select(driver.findElement(By.id("in-modal-state")));
+		dropdown.selectByVisibleText("New Jersey");
+		zipLayover.sendKeys(Global.BILLING_NJ_ZIP_CODE);
+		phoneLayover.sendKeys(Global.BILLING_NJ_PHONE_NUM);
+		saveAddressButton.click();
+	}
+	
+	public void enterNewNonTaxableAddressViaLayover(){
+		fullNameLayover.sendKeys(Global.BILLING_NONTAX_NAME);
+		address1Layover.sendKeys(Global.BILLING_NONTAX_ADDRESS);
+		cityLayover.sendKeys(Global.BILLING_NONTAX_CITY);
+		Select dropdown = new Select(driver.findElement(By.id("in-modal-state")));
+		dropdown.selectByVisibleText("Michigan");
+		zipLayover.sendKeys(Global.BILLING_NONTAX_ZIP_CODE);
+		phoneLayover.sendKeys(Global.BILLING_NONTAX_PHONE_NUM);
+		saveAddressButton.click();
+	}
 	
 	/* 
 	 * Gift certificate field
@@ -304,11 +344,11 @@ public class Checkout {
 	WebElement applyPromocodeButton;
 	
 	public String getAppliedItemLevelPromocodeXpath(){
-		return ".//*[@id='order-wizard-layout']//p[contains(text(),"+Global.PROMOCODE_ITEMLEVEL+")]";
+		return ".//*[@id='order-wizard-layout']//p[contains(text(),'"+Global.PROMOCODE_ITEMLEVEL+"')]";
 	}
 	
 	public String getAppliedOrderLevelPromocodeXpath(){
-		return ".//*[@id='order-wizard-layout']//p[contains(text(),"+Global.PROMOCODE_ORDERLEVEL+")]";
+		return ".//*[@id='order-wizard-layout']//p[contains(text(),'"+Global.PROMOCODE_ORDERLEVEL+"')]";
 	}
 	
 	@FindBy (css = ".icon-remove")
@@ -423,11 +463,34 @@ public class Checkout {
 		addNewAddressLink.click();
 	}
 	
+	/*
+	 * Use this address for new added Address 
+	 */
 	@FindBy (xpath = "(.//*[@id='address-module-list-placeholder']//button[contains(text(), 'Use this Address')])[last()]")
 	WebElement useThisAddressButton;
 	
 	public void clickUseThisAddessButton(){
 		useThisAddressButton.click();
+	}
+	
+	/*
+	 * Change address link
+	 */
+	@FindBy (xpath = ".//*[@id='wizard-step-content']//a[contains(text(), 'Change address')]")
+	WebElement changeAddressLink;
+	
+	public void clickChangeAddressLink(){
+		changeAddressLink.click();
+	}
+	
+	/*
+	 * Ship to this address for new added Address 
+	 */
+	@FindBy (xpath = "(.//*[@id='address-module-list-placeholder']//button[contains(text(), 'Ship to this Address')])[last()]")
+	WebElement shipToThisAddressButton;
+	
+	public void clickShipToThisAddressButton(){
+		shipToThisAddressButton.click();
 	}
 	
 	
@@ -449,6 +512,26 @@ public class Checkout {
 	public String getShippingAddressFullNameText(){
 		return fullNameOfShippingAddress.getText();
 	}
+	
+	
+	/*
+	 * Tax value on Total section
+	 */
+	
+	@FindBy(xpath = ".//*[@id='order-wizard-layout']//span[@class='pull-right cart-summary-tax-total-formatted']")
+	WebElement taxValueOnTotalSection;
+	
+	public String getTaxValueFromTotalSection(){
+		return taxValueOnTotalSection.getText();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }
