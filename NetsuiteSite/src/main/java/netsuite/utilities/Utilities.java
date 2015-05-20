@@ -87,7 +87,7 @@ public class Utilities {
 		if(isElementPresent(By.xpath(loginPage.getLogOutXpath()))){
 			loginPage.clickLogOutLink();
 			waitForElementVisibleX(homePage.getSliderWrapperXpath());
-			driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		} else {
 			System.out.println("User is already logged out");
 		}

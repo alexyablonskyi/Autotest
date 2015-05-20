@@ -21,12 +21,15 @@ public interface Global {
 	String NY								="New York";
 	
 // User Id's
-	String QA_EMAIL_ID						="qa.test@poppin.com";
+	//String QA_EMAIL_ID						="qa.test@poppin.com";
 	String PAYPAL_EMAIL_ID					="tech@poppin.com";
 
-		
-// Password
-	String QA_PASS							="poppin15";
+// Temporary Cred
+	String QA_EMAIL_ID						="oyablonskyi@gmail.com";
+	String QA_PASS							="myangel250687";	
+
+	// Password
+	//String QA_PASS							="poppin15";
 	String PAYPAL_PASS						="W3lc0me!23";
 	String INCORRECT_PASS   				="15poppin";
 
