@@ -1,6 +1,8 @@
 package netsuite.pages;
 
 
+import netsuite.utilities.Utilities;
+
 import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -171,7 +173,7 @@ public class Login {
     }
 	
     public void loginAsReturningCustomer(String email,String password){
-		setEmailForReturningCustomer(email);
+    	setEmailForReturningCustomer(email);
 		setPasswordForReturningCustomer(password);
 		clickSubmitButtonForReturnCustomer();	
 	}

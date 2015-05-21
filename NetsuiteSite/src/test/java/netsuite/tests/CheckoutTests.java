@@ -218,9 +218,9 @@ public class CheckoutTests extends Base {
 		checkout = new Checkout(driver);
 		checkout.applyPromocode(Global.PROMOCODE_ITEMLEVEL);
 		
-		System.out.println(checkout.getAppliedItemLevelPromocodeXpath());
-		
 		Assert.assertTrue(isElementPresent(By.xpath(checkout.getAppliedItemLevelPromocodeXpath())));
+		
+		System.out.println(isElementPresent(By.xpath(checkout.getAppliedItemLevelPromocodeXpath())));
 	}
 	
 	@Test(enabled= true, priority=10, groups = {"Promocode"}, 
@@ -237,9 +237,9 @@ public class CheckoutTests extends Base {
 		checkout = new Checkout(driver);
 		checkout.applyPromocode(Global.PROMOCODE_ORDERLEVEL);
 		
-		System.out.println(checkout.getAppliedOrderLevelPromocodeXpath());
-		
 		Assert.assertTrue(isElementPresent(By.xpath(checkout.getAppliedOrderLevelPromocodeXpath())));
+		
+		System.out.println(isElementPresent(By.xpath(checkout.getAppliedOrderLevelPromocodeXpath())));
 	}
 	
 	
@@ -256,9 +256,9 @@ public class CheckoutTests extends Base {
 		checkout = new Checkout(driver);
 		checkout.applyPromocode(Global.PROMOCODE_INVALID);
 		
-		System.out.println(checkout.getTextOfErrorMessageForPromocode());
-		
 		Assert.assertTrue(checkout.getTextOfErrorMessageForPromocode().contains("Coupon code is invalid or unrecognized"));
+		
+		System.out.println(checkout.getTextOfErrorMessageForPromocode());
 	}
 	
 	@Test(enabled= true, priority=12, groups = {"Promocode"}, 
@@ -274,9 +274,9 @@ public class CheckoutTests extends Base {
 		checkout = new Checkout(driver);
 		checkout.applyPromocode(Global.PROMOCODE_EXPIRED);
 		
-		System.out.println(checkout.getTextOfErrorMessageForPromocode());
-		
 		Assert.assertTrue(checkout.getTextOfErrorMessageForPromocode().contains("This coupon code has expired or is invalid"));
+		
+		System.out.println(checkout.getTextOfErrorMessageForPromocode());
 	}
 	
 	@Test(enabled= true, priority=13, groups = {"Promocode"}, 
@@ -292,9 +292,9 @@ public class CheckoutTests extends Base {
 		checkout = new Checkout(driver);
 		checkout.applyPromocode(Global.PROMOCODE_ORDERLEVEL);
 		
-		System.out.println(checkout.getTextOfErrorMessageForPromocode());
-		
 		Assert.assertTrue(checkout.getTextOfErrorMessageForPromocode().contains("A minimum order amount of $85.00 is required to use this coupon code."));
+		
+		System.out.println(checkout.getTextOfErrorMessageForPromocode());
 	}
 	
 	@Test(enabled= true, priority=14, groups = {"Gift certificate"}, 
@@ -311,9 +311,10 @@ public class CheckoutTests extends Base {
 		checkout.clickPayWithGiftCertificateLink();
 		checkout.applyGiftCertificateCode(Global.GIFT_CERTIFICATE_CODE);
 		
-		System.out.println(checkout.getAppliedGiftCertificateXpath());
-		
 		Assert.assertTrue(isElementPresent(By.xpath(checkout.getAppliedGiftCertificateXpath())));
+		
+		System.out.println(isElementPresent(By.xpath(checkout.getAppliedGiftCertificateXpath())));
+		
 	}
 	
 	
@@ -337,11 +338,11 @@ public class CheckoutTests extends Base {
 		checkout.applyGiftCertificateCode(Global.GIFT_CERTIFICATE_CODE_2);
 		Utilities.waitUntilAjaxRequestCompletes();
 		
-		System.out.println(checkout.getAppliedGiftCertificateXpath());
-		System.out.println(checkout.getSecondAppliedGiftCertificateXpath());
-		
 		Assert.assertTrue(isElementPresent(By.xpath(checkout.getAppliedGiftCertificateXpath()))); 
 		Assert.assertTrue(isElementPresent(By.xpath(checkout.getSecondAppliedGiftCertificateXpath())));
+		
+		System.out.println(isElementPresent(By.xpath(checkout.getAppliedGiftCertificateXpath())));
+		System.out.println(isElementPresent(By.xpath(checkout.getSecondAppliedGiftCertificateXpath())));
 	}
 	
 	@Test(enabled= true, priority=16, groups = {"Gift certificate"}, 
@@ -358,9 +359,9 @@ public class CheckoutTests extends Base {
 		checkout.clickPayWithGiftCertificateLink();
 		checkout.applyGiftCertificateCode(Global.GIFT_CERTIFICATE_INVALID);
 		
-		System.out.println(checkout.getTextOfErrorMessageForGiftCertificate());
-		
 		Assert.assertTrue(checkout.getTextOfErrorMessageForGiftCertificate().contains("Gift Certificate Invalid"));
+		
+		System.out.println(checkout.getTextOfErrorMessageForGiftCertificate());
 	}
 	
 	
@@ -378,9 +379,9 @@ public class CheckoutTests extends Base {
 		checkout.clickPayWithGiftCertificateLink();
 		checkout.applyGiftCertificateCode(Global.GIFT_CERTIFICATE_USED);
 		
-		System.out.println(checkout.getTextOfErrorMessageForGiftCertificate());
-		
 		Assert.assertTrue(checkout.getTextOfErrorMessageForGiftCertificate().contains("Gift certificate redemption amount exceeds available amount on the gift certificate"));
+	
+		System.out.println(checkout.getTextOfErrorMessageForGiftCertificate());
 	}
 	
 	@Test(enabled= false, priority=18, groups = {"Tax"}, 

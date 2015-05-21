@@ -25,7 +25,7 @@ public interface Global {
 	String PAYPAL_EMAIL_ID					="tech@poppin.com";
 
 // Temporary Cred
-	String QA_EMAIL_ID						="oyablonskyi@gmail.com";
+	String QA_EMAIL_ID						="ayablonskyi123@gmail.com";
 	String QA_PASS							="myangel250687";	
 
 	// Password
