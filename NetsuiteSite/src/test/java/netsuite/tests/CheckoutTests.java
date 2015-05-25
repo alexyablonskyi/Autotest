@@ -1,11 +1,8 @@
 package netsuite.tests;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import netsuite.base.*;
 import netsuite.pages.*;
 import netsuite.utilities.*;
@@ -205,7 +202,7 @@ public class CheckoutTests extends Base {
 	}
 	
 	
-	@Test(enabled= true, priority=9, groups = {"Promocode"}, 
+	@Test(enabled= false, priority=9, groups = {"Promocode"}, 
 			description= "Check that there is a possibility to apply Item-Level Promocode on Payment page ")
 	public void applyItemLevelPromocodeToOrderOnPaymentPage() throws Exception{
 		shoppingCart = new ShoppingCart(driver);
@@ -223,7 +220,7 @@ public class CheckoutTests extends Base {
 		System.out.println(isElementPresent(By.xpath(checkout.getAppliedItemLevelPromocodeXpath())));
 	}
 	
-	@Test(enabled= true, priority=10, groups = {"Promocode"}, 
+	@Test(enabled= false, priority=10, groups = {"Promocode"}, 
 			description= "Check that there is a possibility to apply Order-Level Promocode on Payment page ")
 	public void applyOrderLevelPromocodeToOrderOnPaymentPage() throws Exception{
 		shoppingCart = new ShoppingCart(driver);
@@ -243,7 +240,7 @@ public class CheckoutTests extends Base {
 	}
 	
 	
-	@Test(enabled= true, priority=11, groups = {"Promocode"}, 
+	@Test(enabled= false, priority=11, groups = {"Promocode"}, 
 			description= "Check error message for Invalid Promocode on Payment page")
 	public void errorForInvalidPromocodeOnPaymentPage() throws Exception{
 		shoppingCart = new ShoppingCart(driver);
@@ -261,7 +258,7 @@ public class CheckoutTests extends Base {
 		System.out.println(checkout.getTextOfErrorMessageForPromocode());
 	}
 	
-	@Test(enabled= true, priority=12, groups = {"Promocode"}, 
+	@Test(enabled= false, priority=12, groups = {"Promocode"}, 
 			description= "Check error message for Expired Promocode on Payment page")
 	public void errorForExpairedPromocodeOnPaymentPage() throws Exception{
 		shoppingCart = new ShoppingCart(driver);
@@ -279,7 +276,7 @@ public class CheckoutTests extends Base {
 		System.out.println(checkout.getTextOfErrorMessageForPromocode());
 	}
 	
-	@Test(enabled= true, priority=13, groups = {"Promocode"}, 
+	@Test(enabled= false, priority=13, groups = {"Promocode"}, 
 			description= "Check error message for Promocode with minimum amount of total on Payment page")
 	public void errorForMinimumAmoutOfTotalPromocodeOnPaymentPage() throws Exception{
 		shoppingCart = new ShoppingCart(driver);
@@ -287,7 +284,7 @@ public class CheckoutTests extends Base {
 		shoppingCart.clickCheckoutButton();
 		
 		loginPage = new Login(driver);
-		loginPage.loginAsReturningCustomer(Global.QA_EMAIL_ID, Global.QA_PASS);
+		loginPage.createNewIndividualCustomer(Global.FNAME, Global.LNAME, loginPage.getRandomEmailForNewInduvidualCustomer(), Global.QA_PASS);
 		
 		checkout = new Checkout(driver);
 		checkout.applyPromocode(Global.PROMOCODE_ORDERLEVEL);
@@ -297,7 +294,7 @@ public class CheckoutTests extends Base {
 		System.out.println(checkout.getTextOfErrorMessageForPromocode());
 	}
 	
-	@Test(enabled= true, priority=14, groups = {"Gift certificate"}, 
+	@Test(enabled= false, priority=14, groups = {"Gift certificate"}, 
 			description= "Check that there is a possibility to apply Gift Cetificate on Payment page ")
 	public void applyGiftCertificateToOrderOnPaymentPage() throws Exception{
 		shoppingCart = new ShoppingCart(driver);
@@ -318,7 +315,7 @@ public class CheckoutTests extends Base {
 	}
 	
 	
-	@Test(enabled= true, priority=15, groups = {"Gift certificate"}, 
+	@Test(enabled= false, priority=15, groups = {"Gift certificate"}, 
 			description= "Check that there is a possibility to apply TWO Gift Cetificates on Payment page ")
 	public void applyTwoGiftCertificateToOrderOnPaymentPage() throws Exception{
 		shoppingCart = new ShoppingCart(driver);
@@ -345,7 +342,7 @@ public class CheckoutTests extends Base {
 		System.out.println(isElementPresent(By.xpath(checkout.getSecondAppliedGiftCertificateXpath())));
 	}
 	
-	@Test(enabled= true, priority=16, groups = {"Gift certificate"}, 
+	@Test(enabled= false, priority=16, groups = {"Gift certificate"}, 
 			description= "Check error message for Invalid Gift Certificate on Payment page ")
 	public void errorForInvalidGiftCertificateOnPaymentPage() throws Exception{
 		shoppingCart = new ShoppingCart(driver);
@@ -365,7 +362,7 @@ public class CheckoutTests extends Base {
 	}
 	
 	
-	@Test(enabled= true, priority=17, groups = {"Gift certificate"}, 
+	@Test(enabled= false, priority=17, groups = {"Gift certificate"}, 
 			description= "Check error message for Used Gift Certificate on Payment page ")
 	public void errorForUsedGiftCertificateOnPaymentPage() throws Exception{
 		shoppingCart = new ShoppingCart(driver);
@@ -555,8 +552,7 @@ public class CheckoutTests extends Base {
 	}
 	
 	
-	
-	
+
 	
 	
 	

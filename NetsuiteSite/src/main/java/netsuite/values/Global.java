@@ -1,11 +1,5 @@
 package netsuite.values;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Select;
-
-
 public interface Global {
 
 	
@@ -25,7 +19,7 @@ public interface Global {
 	String PAYPAL_EMAIL_ID					="tech@poppin.com";
 
 // Temporary Cred
-	String QA_EMAIL_ID						="ayablonskyi123@gmail.com";
+	String QA_EMAIL_ID						="oyablonskyi@gmail.com";
 	String QA_PASS							="myangel250687";	
 
 	// Password

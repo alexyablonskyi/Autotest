@@ -1,10 +1,8 @@
 package netsuite.utilities;
 
 import java.util.concurrent.TimeUnit;
-
 import netsuite.pages.Home;
 import netsuite.pages.Login;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
@@ -18,14 +16,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.google.common.base.Stopwatch;
-
 
 public class Utilities {
 	
 	public static WebDriver driver = null;
-	
-	
 
 	
 	// ---- This method will run firefox profile of Sage----	

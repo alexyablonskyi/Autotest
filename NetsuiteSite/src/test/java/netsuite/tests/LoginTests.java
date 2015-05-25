@@ -3,6 +3,7 @@ package netsuite.tests;
 import netsuite.base.Base;
 import netsuite.pages.Home;
 import netsuite.pages.Login;
+import netsuite.utilities.Utilities;
 import netsuite.values.Global;
 
 import org.openqa.selenium.By;
@@ -41,18 +42,44 @@ public class LoginTests extends Base {
         Assert.assertTrue(isElementPresent(By.xpath(loginPage.getLogOutXpath())));
     }
 	//Pass
-	@Test(enabled= false, priority=2, groups = {"Login/Creating customer"}, 
+	@Test(enabled= true, priority=2, groups = {"Login/Creating customer"}, 
 			description= "")
     public void createNewInduvidualCustomer() throws Exception{
+		
 		homePage = new Home(driver);
 		homePage.openLoginPage();	
+		
 		loginPage = new Login(driver);
+		
 		loginPage.createNewIndividualCustomer(Global.FNAME, Global.LNAME, loginPage.getRandomEmailForNewInduvidualCustomer(), Global.QA_PASS);
 		waitForElementVisibleX(loginPage.getLogOutXpath());
 		
         Assert.assertTrue(isElementPresent(By.xpath(loginPage.getLogOutXpath())));
         
+        loginPage.openGmailLoginPage();
+        loginPage.loginToTestEmailAccount();
+        loginPage.openPromotionTabOnGmailAccount();
+        Utilities.waitForPageLoad(driver);
+        
+        System.out.println("Xpath of Say Hi Email is: " + loginPage.getSayHiEmailXpath());
+        
+        Assert.assertTrue(isElementPresent(By.xpath(loginPage.getSayHiEmailXpath())));
+        
+        System.out.println("Say hi email is present: " + isElementPresent(By.xpath(loginPage.getSayHiEmailXpath())));
     }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//pass
 	@Test(enabled= false, priority=3, groups = {"Login/Creating customer"}, 
 			description= "")

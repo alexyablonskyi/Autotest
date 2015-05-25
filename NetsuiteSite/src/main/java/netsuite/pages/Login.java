@@ -1,8 +1,5 @@
 package netsuite.pages;
 
-
-import netsuite.utilities.Utilities;
-
 import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 
-public class Login {
+public class Login{
 
 	WebDriver driver;
 	
@@ -45,18 +42,6 @@ public class Login {
 	public void clickLogOutLink(){
 		logOutLink.click();
 	}
-	
-/*	@FindBy(id = "signOut")
-    WebElement signOutButton;
-	
-	public String getSignOutByID(){
-		return "signOut";
-	}
-	
-	public void clickSignOutLink(){
-		signOutButton.click();
-	}
-	*/
 	
 	/*
 	 * Elements on Login Page (Returning customer section, Vertical line and New customer section)
@@ -141,9 +126,7 @@ public class Login {
 		return "div.alert.alert-error";
 	}
     
-    
-    
-    
+        
     
     /*
      *  RETURNING CUSTOMER SECTION
@@ -151,31 +134,19 @@ public class Login {
     
     @FindBy(id = "login-email")
     WebElement emailFieldForReturnCustomer; 
-
-    public void setEmailForReturningCustomer(String email){
-    	emailFieldForReturnCustomer.clear();
-    	emailFieldForReturnCustomer.sendKeys(email);
-    }
     
     @FindBy(id = "login-password")
     WebElement passwordFieldForReturnCustomer;
     
-    public void setPasswordForReturningCustomer(String password){
-    	passwordFieldForReturnCustomer.clear();
-    	passwordFieldForReturnCustomer.sendKeys(password);
-    }
-    
     @FindBy(id = "login")
     WebElement submitButtonForReturnCustomer;
-    
-    public void clickSubmitButtonForReturnCustomer(){
-    	submitButtonForReturnCustomer.click();
-    }
 	
     public void loginAsReturningCustomer(String email,String password){
-    	setEmailForReturningCustomer(email);
-		setPasswordForReturningCustomer(password);
-		clickSubmitButtonForReturnCustomer();	
+    	emailFieldForReturnCustomer.click();
+    	emailFieldForReturnCustomer.sendKeys(email);
+    	passwordFieldForReturnCustomer.click();
+    	passwordFieldForReturnCustomer.sendKeys(password);
+    	submitButtonForReturnCustomer.click();
 	}
     
     /* 
@@ -206,107 +177,73 @@ public class Login {
     //Describe all fields on New customer section
     @FindBy(id = "register-firstname")
     WebElement firstNameFieldForNewCustomer;
-    
-    public void setFirstNameForNewCustomer(String firstName) {
-    	firstNameFieldForNewCustomer.sendKeys(firstName);
-    }
 
     @FindBy(id = "register-lastname")
     WebElement lastNameFieldForNewCustomer;
-    
-    public void setLastNameForNewCustomer(String lastName) {
-    	lastNameFieldForNewCustomer.sendKeys(lastName);
-    }
 
     @FindBy(id = "register-email")
     WebElement emailFieldForNewCustomer;
-   
-    public void setEmailForNewCustomer(String emailForNewIndUser) {
-    	emailFieldForNewCustomer.sendKeys(emailForNewIndUser);
-    }
     
     @FindBy(id = "register-password")
     WebElement passwordFieldForNewCustomer;
-
-    public void setPasswordForNewCustomer(String password) {
-    	passwordFieldForNewCustomer.sendKeys(password);
-    }
-    
-
     
     @FindBy(id = "register-company")
     WebElement companyFieldForNewCustomer;
-    
-    public void setCompanyForNewCustomer(String companyForNewUser) {
-    	companyFieldForNewCustomer.sendKeys(companyForNewUser);
-    }
 
     @FindBy(id = "register-emailsubscribe")
     WebElement signUpForNewslettersCheckbox;
-    
-    public void clickSubscribeCheckbox(){
-    	signUpForNewslettersCheckbox.click();
-    }
 
     @FindBy(id = "submit")
     WebElement submitButtonForNewCustomer;
     
-    public void clickSubmitButtonForNewCustomer(){
-    	submitButtonForNewCustomer.click();
-    }
-    
     @FindBy(id = "myself_radio")
     WebElement mySelfRadioButton;
-    
-    public void clickForMySelfRadioButton(){
-    	mySelfRadioButton.click();
-    }
     
     @FindBy(id = "business_radio")
     WebElement businessRadioButton;
     
-    public void clickForBusinessRadioButton(){
-    	businessRadioButton.click();
-    }
-    
    
     //Create new INDIVIDUAL customer
     public void createNewIndividualCustomer(String firstName, String lastName, String emailForNewIndUser, String password){
-    	setFirstNameForNewCustomer(firstName);
-    	setLastNameForNewCustomer(lastName);
-    	setEmailForNewCustomer(emailForNewIndUser);
-    	setPasswordForNewCustomer(password);
-    	clickSubmitButtonForNewCustomer();
+    	firstNameFieldForNewCustomer.click();
+    	firstNameFieldForNewCustomer.sendKeys(firstName);
+    	lastNameFieldForNewCustomer.click();
+    	lastNameFieldForNewCustomer.sendKeys(lastName);
+    	emailFieldForNewCustomer.click();
+    	emailFieldForNewCustomer.sendKeys(emailForNewIndUser);
+    	passwordFieldForNewCustomer.click();
+    	passwordFieldForNewCustomer.sendKeys(password);
+    	submitButtonForNewCustomer.click();
     }
     
     //Create new BUSINESS customer
     public void createNewBusinessCustomer(String firstName, String lastName, String emailForNewIndUser, String password, String companyForNewUser){
-    	setFirstNameForNewCustomer(firstName);
-    	setLastNameForNewCustomer(lastName);
-    	setEmailForNewCustomer(emailForNewIndUser);
-    	setPasswordForNewCustomer(password);
-    	setCompanyForNewCustomer(companyForNewUser);
-    	clickSubmitButtonForNewCustomer();
+    	firstNameFieldForNewCustomer.sendKeys(firstName);
+    	lastNameFieldForNewCustomer.sendKeys(lastName);
+    	emailFieldForNewCustomer.sendKeys(emailForNewIndUser);
+    	passwordFieldForNewCustomer.sendKeys(password);
+    	companyFieldForNewCustomer.sendKeys(companyForNewUser);
+    	submitButtonForNewCustomer.click();
     }   
     
     //Create new customer that Shopping for mySelf
     public void createNewCustomerShoppingForMyself(String firstName, String lastName, String emailForNewIndUser, String password){
-    	setFirstNameForNewCustomer(firstName);
-    	setLastNameForNewCustomer(lastName);
-    	setEmailForNewCustomer(emailForNewIndUser);
-    	setPasswordForNewCustomer(password);
-    	clickForMySelfRadioButton();
-    	clickSubmitButtonForNewCustomer();
+    	firstNameFieldForNewCustomer.sendKeys(firstName);
+    	lastNameFieldForNewCustomer.sendKeys(lastName);
+    	emailFieldForNewCustomer.sendKeys(emailForNewIndUser);
+    	passwordFieldForNewCustomer.sendKeys(password);
+    	mySelfRadioButton.click();
+    	submitButtonForNewCustomer.click();
     }    
     
     //Create new customer that Shopping for Business
     public void createNewCustomerShoppingForBusiness(String firstName, String lastName, String emailForNewIndUser, String password){
-    	setFirstNameForNewCustomer(firstName);
-    	setLastNameForNewCustomer(lastName);
-    	setEmailForNewCustomer(emailForNewIndUser);
-    	setPasswordForNewCustomer(password);
-    	clickForBusinessRadioButton();
-    	clickSubmitButtonForNewCustomer();
+    	firstNameFieldForNewCustomer.sendKeys(firstName);
+    	lastNameFieldForNewCustomer.sendKeys(lastName);
+    	emailFieldForNewCustomer.sendKeys(emailForNewIndUser);
+    	passwordFieldForNewCustomer.sendKeys(password);
+    	businessRadioButton.click();
+    	submitButtonForNewCustomer.click();
     }
     
     /* 
@@ -381,4 +318,55 @@ public class Login {
     public String getErrorMessageTextForEmailField_ReturningCustomer(){
     	return emailErrorMessage.getText();
     }
+    
+    /*
+     * Login to Test email account
+     */
+    @FindBy (xpath = ".//input[@id='Email']")
+    WebElement emailFieldForTestAcc;
+    
+    @FindBy (xpath = ".//input[@id='Passwd']")
+    WebElement passwordFieldForTestAcc;
+    
+    @FindBy (xpath = ".//input[@id='signIn']")
+    WebElement signInButtonForTestAcc;
+    
+    @FindBy (xpath = ".//input[@id='next']")
+    WebElement nextButtonForTestAcc;
+    
+    public void loginToTestEmailAccount(){
+    	emailFieldForTestAcc.sendKeys("fortesting144@gmail.com");
+    	nextButtonForTestAcc.click();
+    	passwordFieldForTestAcc.sendKeys("poppin123");
+    	signInButtonForTestAcc.click();
+    }
+    
+    public void openGmailLoginPage(){
+    	driver.get("https://gmail.com");
+    }
+    
+    public String getSayHiEmailXpath(){
+    	return ".//span[contains(text(), '[SANDBOX] Say hi to Poppin! (originally To:'"+emailForNewIndUser+"')')]";
+    }
+    
+    
+    @FindBy(xpath = ".//div[contains(text(),'Promotions')]")
+    WebElement promotionTab;
+    
+    public void openPromotionTabOnGmailAccount(){
+    	promotionTab.click();
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
