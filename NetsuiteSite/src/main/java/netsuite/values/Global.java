@@ -13,6 +13,10 @@ public interface Global {
 	String ZIP_CODE							="10010";
 	String PHONE_NUM						="718-926-1212";
 	String NY								="New York";
+
+// Shopping for types
+	String SHOPPPING_FOR_BUSINESS			="business";
+	String SHOPPPING_FOR_MYSELF				="myself";
 	
 // User Id's
 	//String QA_EMAIL_ID						="qa.test@poppin.com";
@@ -70,7 +74,10 @@ public interface Global {
 	String BILLING_NONTAX_CITY				="Detroit";
 	String BILLING_NONTAX_ZIP_CODE			="48226";
 	String BILLING_NONTAX_PHONE_NUM			="718-926-0000";
-
+	
+//Gmail test account
+	String GMAIL_EMAIL						="fortesting144@gmail.com";
+	String GMAIL_PASSWORD					="poppin123";
 }
 
 

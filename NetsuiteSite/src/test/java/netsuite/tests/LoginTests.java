@@ -41,27 +41,28 @@ public class LoginTests extends Base {
         
         Assert.assertTrue(isElementPresent(By.xpath(loginPage.getLogOutXpath())));
     }
+	
+	
+	
+	
 	//Pass
-	@Test(enabled= true, priority=2, groups = {"Login/Creating customer"}, 
-			description= "")
-    public void createNewInduvidualCustomer() throws Exception{
+	@Test(enabled= false, priority=2, groups = {"Login/Creating customer"}, 
+			description= "Verify if Say Hi email was sent to Customer")
+    public void verifySayHiEmailForNewCustomer() throws Exception{
 		
 		homePage = new Home(driver);
 		homePage.openLoginPage();	
 		
 		loginPage = new Login(driver);
-		
 		loginPage.createNewIndividualCustomer(Global.FNAME, Global.LNAME, loginPage.getRandomEmailForNewInduvidualCustomer(), Global.QA_PASS);
 		waitForElementVisibleX(loginPage.getLogOutXpath());
 		
         Assert.assertTrue(isElementPresent(By.xpath(loginPage.getLogOutXpath())));
         
         loginPage.openGmailLoginPage();
-        loginPage.loginToTestEmailAccount();
+        loginPage.loginToTestEmailAccount(Global.GMAIL_EMAIL, Global.GMAIL_PASSWORD);
         loginPage.openPromotionTabOnGmailAccount();
         Utilities.waitForPageLoad(driver);
-        
-        System.out.println("Xpath of Say Hi Email is: " + loginPage.getSayHiEmailXpath());
         
         Assert.assertTrue(isElementPresent(By.xpath(loginPage.getSayHiEmailXpath())));
         
@@ -71,13 +72,18 @@ public class LoginTests extends Base {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
+	//pass
+		@Test(enabled= false, priority=3, groups = {"Login/Creating customer"}, 
+				description= "")
+	    public void createNewCustomerWithShoppinForValue() throws Exception{
+			homePage = new Home(driver);
+			homePage.openLoginPage();	
+			loginPage = new Login(driver);
+			loginPage.createNewCustomerWithShoppingForParametr (Global.FNAME, Global.LNAME, loginPage.getRandomEmailForNewInduvidualCustomer(), Global.SHOPPPING_FOR_BUSINESS, Global.QA_PASS);
+			waitForElementVisibleX(loginPage.getLogOutXpath());
+
+	        Assert.assertTrue(isElementPresent(By.xpath(loginPage.getLogOutXpath())));
+	    }
 	
 	
 	//pass

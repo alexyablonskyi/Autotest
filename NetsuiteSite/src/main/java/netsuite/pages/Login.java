@@ -202,7 +202,27 @@ public class Login{
     @FindBy(id = "business_radio")
     WebElement businessRadioButton;
     
+    //
+    public void selectForShoppingCheckbox(String type){
+    	if (type.equals("myself")){
+    		mySelfRadioButton.click();
+    	} else if (type.equals("business")) {
+    		businessRadioButton.click();
+    	} else{
+    		System.out.println("Any values do not select");
+    	}
+    }
    
+  //Create new customer that with "Shopping for" value
+    public void createNewCustomerWithShoppingForParametr(String firstName, String lastName, String emailForNewIndUser, String type, String password){
+    	firstNameFieldForNewCustomer.sendKeys(firstName);
+    	lastNameFieldForNewCustomer.sendKeys(lastName);
+    	selectForShoppingCheckbox(type);
+    	emailFieldForNewCustomer.sendKeys(emailForNewIndUser);
+    	passwordFieldForNewCustomer.sendKeys(password);
+    	submitButtonForNewCustomer.click();
+    }   
+    
     //Create new INDIVIDUAL customer
     public void createNewIndividualCustomer(String firstName, String lastName, String emailForNewIndUser, String password){
     	firstNameFieldForNewCustomer.click();
@@ -225,6 +245,8 @@ public class Login{
     	companyFieldForNewCustomer.sendKeys(companyForNewUser);
     	submitButtonForNewCustomer.click();
     }   
+   
+    
     
     //Create new customer that Shopping for mySelf
     public void createNewCustomerShoppingForMyself(String firstName, String lastName, String emailForNewIndUser, String password){
@@ -334,10 +356,10 @@ public class Login{
     @FindBy (xpath = ".//input[@id='next']")
     WebElement nextButtonForTestAcc;
     
-    public void loginToTestEmailAccount(){
-    	emailFieldForTestAcc.sendKeys("fortesting144@gmail.com");
+    public void loginToTestEmailAccount(String email, String password){
+    	emailFieldForTestAcc.sendKeys(email);
     	nextButtonForTestAcc.click();
-    	passwordFieldForTestAcc.sendKeys("poppin123");
+    	passwordFieldForTestAcc.sendKeys(password);
     	signInButtonForTestAcc.click();
     }
     
