@@ -1,7 +1,9 @@
 package netsuite.pages;
 
 import java.sql.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -67,14 +69,35 @@ public class Category {
 		actions.moveToElement(filterByColor).pause(500);
 		driver.findElement(By.xpath(".//*[@id='filter_custitem3']/li[@class='"+color+"']")).click();
 	}
-	/*
 	
-	public  getArrayOfItemsOnPage(){
-		Arrays[] quantityOfItems = driver.findElements(By.xpath(".//p[@class = 'price']")).toArray(a);
-		return quantityOfItems;
+	
+	public void getArrayOfItemsOnPage(){
+		List<WebElement> list = driver.findElements(By.xpath(".//p[@class = 'price']"));
+		System.out.println("Number of elements: " + list.size());
+		
+		List<WebElement> spans = driver.findElements(By.xpath(".//span[@class = 'custom-detail']"));
+		
+		for(WebElement ele : list){
+			for(WebElement span : spans){
+					String res = ele.getText();
+					System.out.println("main result: " +res);
+				
+					String result = span.getText();
+					System.out.println("result of span: " +result);
+				
+					String res2 = res.replace(result, "");
+			
+					System.out.println("Result after replace: " + res2);
+			
+			
+			//Integer x = Integer.valueOf(res);
+			//System.out.println(x);
+			}
+
+        } 
 	}
 	
-	*/
+	
 	
 	
 }

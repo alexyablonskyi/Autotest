@@ -45,9 +45,10 @@ public class CategoryPageTests extends Base {
 	public void verifyFilterByPrice() throws Exception{
 		category = new Category(driver);
 		category.openWritingCategoryPage();
-		//category.getArrayOfItemsOnPage();
-		Thread.sleep(5000);
-		//System.out.println(category.getArrayOfItemsOnPage());
+		category.getArrayOfItemsOnPage();
+		
+		Thread.sleep(2000);
+	
 		
 		//Assert.assertEquals(category.getQuontityOfItemsWithColor("Red"), category.getQuantityOfItemsOnPage());
 		
