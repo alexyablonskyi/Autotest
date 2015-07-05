@@ -40,7 +40,7 @@ public class CategoryPageTests extends Base {
 	
 	
 	 
-	@Test(enabled= true, priority=2, groups = {"Filter by Color"}, 
+	@Test(enabled= false, priority=2, groups = {"Filter by Color"}, 
 			description= "Verify filter by Color")
 	public void verifyFilterByPrice() throws Exception{
 		category = new Category(driver);
