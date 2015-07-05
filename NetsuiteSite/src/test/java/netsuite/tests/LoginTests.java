@@ -49,20 +49,22 @@ public class LoginTests extends Base {
 	@Test(enabled= false, priority=2, groups = {"Login/Creating customer"}, 
 			description= "Verify if Say Hi email was sent to Customer")
     public void verifySayHiEmailForNewCustomer() throws Exception{
-		
+		/*
 		homePage = new Home(driver);
 		homePage.openLoginPage();	
-		
+		*/
 		loginPage = new Login(driver);
+		/*
 		loginPage.createNewIndividualCustomer(Global.FNAME, Global.LNAME, loginPage.getRandomEmailForNewInduvidualCustomer(), Global.QA_PASS);
 		waitForElementVisibleX(loginPage.getLogOutXpath());
 		
         Assert.assertTrue(isElementPresent(By.xpath(loginPage.getLogOutXpath())));
-        
+        */
         loginPage.openGmailLoginPage();
         loginPage.loginToTestEmailAccount(Global.GMAIL_EMAIL, Global.GMAIL_PASSWORD);
         loginPage.openPromotionTabOnGmailAccount();
         Utilities.waitForPageLoad(driver);
+        driver.findElement(By.xpath(loginPage.getSayHiEmailXpath())).click();
         
         Assert.assertTrue(isElementPresent(By.xpath(loginPage.getSayHiEmailXpath())));
         

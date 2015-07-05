@@ -368,7 +368,8 @@ public class Login{
     }
     
     public String getSayHiEmailXpath(){
-    	return ".//span[contains(text(), '[SANDBOX] Say hi to Poppin! (originally To:'"+emailForNewIndUser+"')')]";
+    	//return ".//span[contains(text(), '[SANDBOX] Say hi to Poppin! (originally To:'"+emailForNewIndUser+"')')]";
+    	return ".//span[contains(text(), '[SANDBOX] Welcome to Poppin! (originally To: trytry@gmail.com)')]";
     }
     
     
