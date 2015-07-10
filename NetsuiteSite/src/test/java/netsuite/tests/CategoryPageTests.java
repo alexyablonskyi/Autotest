@@ -45,8 +45,9 @@ public class CategoryPageTests extends Base {
 	public void verifyFilterByPrice() throws Exception{
 		category = new Category(driver);
 		category.openWritingCategoryPage();
-		category.getArrayOfItemsOnPage();
+		Utilities.waitUntilAjaxRequestCompletes();
 		
+		Assert.assertTrue(category.bruteforce(category.getArrayOfItemsOnPage()));
 		Thread.sleep(2000);
 	
 		

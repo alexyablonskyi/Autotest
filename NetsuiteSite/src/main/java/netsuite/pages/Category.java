@@ -25,7 +25,7 @@ public class Category {
 	/*
 	 * Open Writing category via main menu
 	 */
-	@FindBy(xpath = ".//a[@title='Writing']")
+	@FindBy(xpath = ".//a[@title='Furniture']")
 	WebElement writingCategory;
 	
 	public void openWritingCategoryPage(){
@@ -71,33 +71,42 @@ public class Category {
 	}
 	
 	
-	public void getArrayOfItemsOnPage(){
+	public int[] getArrayOfItemsOnPage(){
 		List<WebElement> list = driver.findElements(By.xpath(".//p[@class = 'price']"));
 		System.out.println("Number of elements: " + list.size());
-		
-		List<WebElement> spans = driver.findElements(By.xpath(".//span[@class = 'custom-detail']"));
-		
-		for(WebElement ele : list){
-			for(WebElement span : spans){
-					String res = ele.getText();
-					System.out.println("main result: " +res);
-				
-					String result = span.getText();
-					System.out.println("result of span: " +result);
-				
-					String res2 = res.replace(result, "");
-			
-					System.out.println("Result after replace: " + res2);
-			
-			
-			//Integer x = Integer.valueOf(res);
-			//System.out.println(x);
-			}
 
-        } 
+		int arrayPrice[] = new int[list.size()];              
+		for(int j =0;j<list.size();j++){  
+			arrayPrice[j] = Integer.parseInt(list.get(j).getText().replace("$", "").replace(",", ""));
+			//System.out.println(arrayPrice[j]);
+		}
+		return arrayPrice;
 	}
 	
 	
-	
-	
+	public boolean bruteforce(int[] input) {
+        for (int i = 0; i < input.length; i++) {
+            for (int j = 1; j < input.length; j++) {
+                if (input[i]>= input[j]) {
+                    System.out.println(input[i]);
+                    System.out.println(input[j]);
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+/*
+public class Main {
+ 
+   public static void main(String[] args) {
+      int[] arr = { 4, 1, 2, 3, 5 };
+      int inn;
+      for (inn = 0; inn < arr.length - 1; inn++)
+         if (arr[inn] < arr[inn + 1])
+            break;
+      System.out.println(inn == arr.length - 1);
+   }
+}*/
 }
